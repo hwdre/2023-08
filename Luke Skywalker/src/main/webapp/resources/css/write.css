@@ -1,0 +1,35 @@
+@charset "UTF-8";
+.write-div{
+	margin: 0 auto;
+	width: 900px;
+	background-color: black;
+	padding: 10px;
+}
+
+.write-div input{
+	margin:0; padding:0;
+	width: 100%;
+	height: 30px;
+	margin-bottom: 10px;
+}
+
+.write-div textarea{
+	margin:0; padding:0;
+	width: 100%;
+	height: 500px;
+	margin:5px 0px;
+	
+}
+
+.btn2{
+	margin-top: -20px;
+	width: 100%;
+	height: 30Spx;
+}
+
+.write-div button{
+	margin:0; padding:0;
+	width: 100%;
+	height: 30px;
+	
+}

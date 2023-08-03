@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="login">
+<!-- 담아올 때는 이런 작업이 필요합니다. 가져올때는 이거 필요 없어요. 아이디와 개인정보 보여주는 
+게시판 만들려고 하는데 JoinDTO로 가져오려고 이러는 거에요.-->
+<resultMap type="com.Luke.Login.JoinDTO" id="join">
+	<result column = "m_id" property="id" jdbcType="VARCHAR" javaType="String" />
+	<result column = "m_no" property="no" jdbcType="INTEGER" javaType="Integer" />
+	<result column = "m_name" property="name" jdbcType="VARCHAR" javaType="String" />
+	<result column = "m_addr" property="addr" jdbcType="VARCHAR" javaType="String" />
+	<result column = "m_mbti" property="mbti" jdbcType="VARCHAR" javaType="String" />
+	<result column = "m_gender" property="gender" jdbcType="INTEGER" javaType="Integer" />
+	<result column = "m_birth" property="birth" jdbcType="DATE" javaType="String" />
+</resultMap>
+<!-- 담아올 때는 이런 작업이 필요합니다. 가져올때는 이거 필요 없어요. -->
+
+	<select id="login" parameterType="logindto" resultType="logindto">
+		select m_name, count(*) as 'count' 
+		from membersview 
+		where m_id = #{m_id} and m_pw=#{m_pw}
+	</select>
+	
+	<insert id="join" parameterType="com.Luke.Login.JoinDTO">
+		insert into members(m_id, m_pw, m_name, m_addr, m_mbti, m_birth, m_gender)
+		values(#{id},#{pw1},#{name},#{addr},#{mbti},#{birth},#{gender})
+	</insert>
+	
+	<select id="members" resultMap="join">
+		select * from members
+	</select>
+	
+	<select id="checkID" parameterType="String" resultType="Integer">
+		select count(*) from members where m_id = #{id}
+	</select>
+	
+	<select id="boardList2" parameterType="Integer" resultType="Map">
+		select * from boardview Limit #{pageNo}, 10
+	</select>
+	
+	<select id="totalCount" resultType="Integer">
+		select count(*) from boardview
+	</select>
+	
+</mapper>

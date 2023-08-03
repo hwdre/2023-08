@@ -1,0 +1,45 @@
+@charset "UTF-8";
+body {
+	margin: 0;
+	padding: 0;
+}
+
+nav {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 50px;
+	background-color: gray;
+}
+
+nav ul {
+	margin: 0;
+	padding: 0;
+}
+
+nav li {
+	list-style: none; /* li앞에 원을 없애줍니다. */
+	float: left;
+	width: 100px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	border-right: 1px solid white;
+}
+
+.namespace{
+	float: right;
+}
+
+
+nav li:hover {
+	color: white;
+	cursor: pointer;
+}
+.gdgd{
+	
+width: 400px;
+text-align: center;
+	
+	
+}

@@ -1,0 +1,58 @@
+package com.Luke.Board;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+//Inject 사용해보기
+
+@Repository("boardDAO")
+public class BoardDAO {
+	
+	@Inject
+	@Named("sqlSession")
+	private SqlSession sqlSession;
+	
+	public List<BoardDTO> boardList(PageDTO page){
+		
+		return sqlSession.selectList("board.boardList", page);
+		
+	}
+	
+	public BoardDTO detail(BoardDTO resultdto) {
+		return sqlSession.selectOne("board.detail", resultdto);
+		//앞에는 namespace.id, 뒤에는 value
+	}
+
+	public void write(BoardDTO dto) {
+		sqlSession.insert("board.write",dto); //네임스페이스.id, 값
+		
+	}
+
+	public void delete(BoardDTO dto) {
+		
+		sqlSession.insert("board.delete",dto);
+		
+	}
+
+	public void edit(BoardDTO dto) {
+		sqlSession.update("board.edit",dto);
+	}
+
+	public void ilyou(BoardDTO resultdto) {
+		sqlSession.update("board.ilyou", resultdto);
+		
+	}
+	
+	//전체 게시물 개수를 가져옵니다.
+	public int totalCount() {
+		
+		return sqlSession.selectOne("board.totalCount");
+	}
+	
+}
