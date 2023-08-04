@@ -36,7 +36,7 @@ public class BoardDAO {
 
 	public void delete(BoardDTO dto) {
 		
-		sqlSession.insert("board.delete",dto);
+		sqlSession.update("board.delete",dto);
 		
 	}
 
@@ -53,6 +53,10 @@ public class BoardDAO {
 	public int totalCount() {
 		
 		return sqlSession.selectOne("board.totalCount");
+	}
+
+	public List<Map<String, Object>> commentList(int bno) {
+		return sqlSession.selectList("board.commentList", bno);
 	}
 	
 }

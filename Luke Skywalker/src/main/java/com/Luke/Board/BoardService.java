@@ -76,4 +76,8 @@ public class BoardService {
 		return boardDAO.totalCount();
 	}
 
+	public List<Map<String, Object>> commentList(int bno) {
+		return boardDAO.commentList(bno);
+	}
+
 }

@@ -98,6 +98,12 @@ public class BoardController {
 		dto.setBno(bno);
 
 		BoardDTO resultdto = boardService.detail(dto);
+		//System.out.println(resultdto.getCommentcount());
+		if(resultdto.getCommentcount()>0) {
+			//데이터 베이스에 물어봐서 jsp로 보냅니다.
+			List<Map<String, Object>> commentList = boardService.commentList(bno);
+			model.addAttribute("commentList", commentList);
+		}
 		model.addAttribute("dto", resultdto);
 		return "detail";
 	}

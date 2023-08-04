@@ -3,7 +3,7 @@
 	margin: 0 auto;
 	width: 800px;
 	height: auto;
-	background-color: gray;
+	background-color: #dfdfdf;
 	padding: 10px;
 	box-sizing: border-box;
 }
@@ -16,7 +16,7 @@
 .name-bar{
 	width: 100%;
 	border-bottom: 1px solid black;
-	background-color: white;
+	background-color: #c0c0c0;
 	height: 80px;
 	padding: 20px;
 	box-sizing: border-box;
@@ -37,4 +37,68 @@
 	width:100%;
 	min-height:500px; 
 	height: auto;
+}
+.commentsList{
+	width: 100%;
+	height: auto;
+	margin: 5px 0px;
+	/* border-top: 10px solid white; */
+}
+.comments{
+	width: 100%;
+	height: auto;
+	margin: 5px 0px;	
+}
+
+.comment{
+	width: 100%;
+	min-height: 65px;
+	margin-bottom: 5px;
+}
+.commentHead{
+	width: 100%;
+	height: 32px;
+	line-height:32px;
+	background-color: #f1f1f1;
+}
+.cname{
+	width: 45%;
+	height: 100%;
+	float: left;
+	padding-left: 5px;
+}
+.cdate{
+	width: 45%;
+	height: 100%;
+	float: right;
+	text-align: right;
+	margin-right: 10px;
+}
+.cno{
+	height:0px;
+	visibility: hidden;
+}
+.commentBody{
+	width: 100%;
+	min-height: 35px;
+	height: auto;
+	padding-left: 5px;
+}
+
+.commentBox{
+	width: 100%;
+	height: 300px;
+	padding: 10px;
+	background-color: gray;
+	box-sizing: border-box;
+}
+#commenttextarea{
+	width: calc(100%-100px);
+	height: 280px;
+	float: left;
+}
+#comment{
+	width: 100px;
+	height: 280px;
+	float: right;
 }
