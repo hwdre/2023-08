@@ -9,37 +9,50 @@
 	</select>
 
 	<select id="boardList" parameterType="pagedto" resultType="dto">
-		SELECT * FROM boardview 
+		SELECT * FROM boardview
 		limit #{firstRecordIndex}, #{recordCountPerPage}
 	</select>
-	
-		<!-- #{변수명}을 적어주면 변수가 들어갑니다. -->
+
+	<!-- #{변수명}을 적어주면 변수가 들어갑니다. -->
 	<select id="detail" parameterType="dto" resultType="dto">
-		SELECT * FROM boardview WHERE bno=#{bno} 
+		SELECT * FROM boardview WHERE bno=#{bno}
 		<if test="m_id != null">
-		and m_id=#{m_id}
+			and m_id=#{m_id}
 		</if>
 	</select>
-		
-		<!--  서브쿼리: 쿼리 속에 쿼리가 들어가요. -->
-		<!-- select * from board where m_no=(select m_no from members where m_name='브루스 웨인'); -->
+
+	<!-- 서브쿼리: 쿼리 속에 쿼리가 들어가요. -->
+	<!-- select * from board where m_no=(select m_no from members where m_name='브루스 
+		웨인'); -->
 	<insert id="write" parameterType="dto">
-		INSERT INTO board(btitle, bcontent, m_no, bip, uuid) 
-		VALUES(#{btitle}, #{bcontent}, 
+		INSERT INTO board(btitle,
+		bcontent, m_no, bip, uuid)
+		VALUES(#{btitle}, #{bcontent},
 		(select m_no from members where m_id=#{m_id}), #{bip}, #{uuid})
 	</insert>
-	
+
 	<update id="edit" parameterType="dto">
-		UPDATE board set btitle=#{btitle}, bcontent=#{bcontent}
+		UPDATE board set
+		btitle=#{btitle}, bcontent=#{bcontent}
 		where bno=#{bno}
 	</update>
-	
-	<delete id="delete" parameterType="dto">
-		DELETE FROM board WHERE bno = #{bno} and m_no=(select m_no from members where m_id=#{m_id})
-	</delete>
-	
-	<update id="ilyou" parameterType="dto">
-		update board set blike=blike + 1 where bno = #{bno}
+
+	<update id="delete" parameterType="dto">
+		update board set bdel = 0 
+		where bno = #{bno} and m_no=(select m_no from members where m_id=#{m_id})
 	</update>
-	
+
+	<update id="ilyou" parameterType="dto">
+		update board set blike=blike +
+		1 where bno = #{bno}
+	</update>
+
+	<select id="commentList" parameterType="Integer"
+		resultType="Map">
+
+		SELECT *
+		FROM commentsview
+		WHERE bno=#{bno}
+	</select>
+
 </mapper>
