@@ -221,5 +221,26 @@ public class BoardController {
 		return "redirect:/detail?bno=" + dto.getBno(); // 보드로 이동하겠습니다.
 
 	}
+	
+	//2023-08-07, 프레임워크 프로그래밍
+	@GetMapping("/cdel")
+	public String cdel(@RequestParam Map<String, Object> map, HttpSession session) {
+		//로그인여부 검사
+		if(session.getAttribute("mid") != null) {
+		//값 들어왔는지 여부 검사
+//			
+			if(map.containsKey("bno") && map.get("cno") != null &&
+			!(map.get("bno").equals("")) && !(map.get("cno").equals("")) &&
+			util.isNum(map.get("bno")) && util.isNum(map.get("cno"))) {
+//				System.out.println("여기로 들어왔습니다.");
+			 	map.put("mid", session.getAttribute("mid"));
+			 	int result = boardService.cdel(map);
+			 	System.out.println("삭제 결과: " + result);
+			} //cno가 없는데 map에서 겟걸어서 가져옵니다. 없는데 가져와서 error 뜹니다.
+			//map에서 bno값을 가져왔는데 그 속이 비어있어""지 않아, cno도 비어있지 않아 그리고 
+			//bno,cno에 적힌 값이 숫자로 변환될 수 있다면 if문 실행
+		}
+		return "redirect:/detail?bno=" + map.get("bno");
+	}
 
 }

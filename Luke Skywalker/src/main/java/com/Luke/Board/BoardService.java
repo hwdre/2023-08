@@ -80,4 +80,9 @@ public class BoardService {
 		return boardDAO.commentList(bno);
 	}
 
+	public int cdel(Map<String, Object> map) {
+		
+		return boardDAO.cdel(map);
+	}
+
 }

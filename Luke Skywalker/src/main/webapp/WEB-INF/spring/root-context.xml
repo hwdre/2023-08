@@ -13,7 +13,14 @@
 		<property name="rendererType">
 			<map>
 				<entry key="image" value-ref="imageRenderer"/>
+				<!-- imageRenderer는 이미지 형태의 페이징 스타일을 제공하기 위해 사용됩니다. 
+				즉, 페이징 태그가 페이지 번호를 이미지로 나타낼 때 이 빈을 사용하여 해당 이미지를 렌더링합니다. 
+				예를 들어, 페이지 번호를 원형 아이콘 또는 화살표 아이콘으로 표현할 수 있습니다. -->
 				<entry key="text" value-ref="textRenderer"/>
+				<!-- textRenderer는 텍스트 형태의 페이징 스타일을 제공하기 위해 사용됩니다. 
+				즉, 페이징 태그가 페이지 번호를 숫자나 텍스트로 나타낼 때 이 빈을 사용하여 해당 텍스트를 렌더링합니다. 
+				예를 들어, 페이지 번호를 "1", "2", "3"과 같은 숫자로 표시하거나 
+				"Previous", "Next"와 같은 텍스트로 표시할 수 있습니다. -->
 			</map>
 		</property>
 	</bean>	

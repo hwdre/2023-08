@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
 
 	<select id="totalCount" resultType="Integer">
-		select count(*) from board
+		SELECT count(*) FROM board
 	</select>
 
 	<select id="boardList" parameterType="pagedto" resultType="dto">
-		SELECT * FROM boardview
-		limit #{firstRecordIndex}, #{recordCountPerPage}
+		SELECT * 
+		FROM boardview 
+		LIMIT #{firstRecordIndex }, #{recordCountPerPage }
 	</select>
-
-	<!-- #{변수명}을 적어주면 변수가 들어갑니다. -->
+	
+	<!-- # { 변수명}을 적어주면 변수가 들어가요 -->
 	<select id="detail" parameterType="dto" resultType="dto">
-		SELECT * FROM boardview WHERE bno=#{bno}
+		SELECT * FROM boardview 
+		WHERE bno = #{bno} 
 		<if test="m_id != null">
-			and m_id=#{m_id}
-		</if>
+		AND m_id=#{m_id}
+		</if>		
 	</select>
 
-	<!-- 서브쿼리: 쿼리 속에 쿼리가 들어가요. -->
-	<!-- select * from board where m_no=(select m_no from members where m_name='브루스 
-		웨인'); -->
+	<!-- inert는 result가 없습니다 -->
+	<!-- 서브쿼리 : 쿼리 속에 쿼리가 들어가요 -->
 	<insert id="write" parameterType="dto">
-		INSERT INTO board(btitle,
-		bcontent, m_no, bip, uuid)
-		VALUES(#{btitle}, #{bcontent},
-		(select m_no from members where m_id=#{m_id}), #{bip}, #{uuid})
+		INSERT INTO board (btitle, bcontent, m_no, bip, uuid)
+		VALUES (#{btitle }, #{bcontent }, (SELECT m_no FROM members WHERE m_id=#{m_id }), #{bip }, #{uuid })
 	</insert>
 
-	<update id="edit" parameterType="dto">
-		UPDATE board set
-		btitle=#{btitle}, bcontent=#{bcontent}
-		where bno=#{bno}
+	<update id="delete" parameterType="dto">
+		UPDATE board SET bdel=0 
+		WHERE bno=#{bno } AND m_no=(SELECT m_no FROM members WHERE m_id=#{m_id })  
 	</update>
 
-	<update id="delete" parameterType="dto">
-		update board set bdel = 0 
-		where bno = #{bno} and m_no=(select m_no from members where m_id=#{m_id})
+	<update id="edit" parameterType="dto">
+		UPDATE board SET btitle=#{btitle }, bcontent=#{bcontent }
+		WHERE bno=#{bno }
 	</update>
+
 
 	<update id="ilyou" parameterType="dto">
-		update board set blike=blike +
-		1 where bno = #{bno}
+		UPDATE board SET blike = blike + 1
+		WHERE bno=#{bno }
 	</update>
-
-	<select id="commentList" parameterType="Integer"
-		resultType="Map">
-
-		SELECT *
-		FROM commentsview
-		WHERE bno=#{bno}
+	
+	
+	<select id="commentList" parameterType="Integer" resultType="Map">
+		SELECT * FROM commentsview WHERE bno=#{bno }
 	</select>
-
+	
+	<update id="cdel" parameterType="Map">
+		update comments set c_del=0 where bno = #{bno} and c_no = #{cno}
+		and m_no=(select m_no from members where m_id = #{mid})
+	</update>
+	
 </mapper>
